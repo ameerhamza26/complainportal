@@ -33,13 +33,12 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form action="index2.html" method="post">
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+        <input id="email" type="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+        <input id="password" type="password" class="form-control" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -52,11 +51,10 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button id="signin" type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
         <!-- /.col -->
       </div>
-    </form>
 
     <!--<div class="social-auth-links text-center">
       <p>- OR -</p>
@@ -86,6 +84,35 @@
       increaseArea: '20%' // optional
     });
   });
+
+  var allUsers = [{
+    email: 'operator@hotmail.com',
+    password: 'password',
+    role: 'operator',
+    name: 'operator Khan'
+  }, {
+    email: 'chairman@hotmail.com',
+    password: 'password',
+    role: 'chairman',
+    name: 'chairman Khan'
+  }, {
+    email: 'deputy@hotmail.com',
+    password: 'password',
+    roler: 'deputy',
+    name: 'deputy khan'
+  }]
+
+  localStorage.setItem('AllUsers', JSON.stringify(allUsers));
+  console.log( JSON.parse(localStorage.getItem('AllUsers')) )
+  $('#signin').click(function(){
+      var users =  JSON.parse(localStorage.getItem('AllUsers'));
+      for (var i = 0; i< users.length; i++) {
+        if( $('#email').val() == users[i].email && $('#password').val() == users[i].password && users[i].role == 'operator' ) {
+          window.location.href = 'operator.html';
+          localStorage.setItem('loggedInUser', JSON.stringify(users[i]));
+        }
+      }
+  })
 </script>
 </body>
 </html>
