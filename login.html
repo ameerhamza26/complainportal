@@ -108,7 +108,11 @@
       var users =  JSON.parse(localStorage.getItem('AllUsers'));
       for (var i = 0; i< users.length; i++) {
         if( $('#email').val() == users[i].email && $('#password').val() == users[i].password && users[i].role == 'operator' ) {
-          window.location.href = 'operator.html';
+          window.location.href = 'operator_form.html';
+          localStorage.setItem('loggedInUser', JSON.stringify(users[i]));
+        }
+		else if( $('#email').val() == users[i].email && $('#password').val() == users[i].password && users[i].role == 'chairman' ) {
+          window.location.href = 'chairman.html';
           localStorage.setItem('loggedInUser', JSON.stringify(users[i]));
         }
       }
