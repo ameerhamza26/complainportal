@@ -54,6 +54,12 @@
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
+	
+	
+	
+	
+	
+	
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -62,22 +68,52 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
          
+		 <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope-o"></i>
+              <span class="label label-success">1</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 1 notification</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li><!-- start message -->
+                    <a href="#">
+                      <div class="pull-left">
+                        <img  src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        OPERATOR MATEEN
+                        <small><i class="fa fa-clock-o"></i> 2 mins</small>
+                      </h4>
+                      <p>Operator Mateen Filed a new Complain?</p>
+                    </a>
+                  </li>
+                  <!-- end message -->
+                
+                </ul>
+              </li>
+              
+            </ul>
+          </li>
+		 
           
           <!-- Tasks: style can be found in dropdown.less -->
           
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Mateen ul haq</span>
+              <img width="160px" height="160px" src="dist/img/gt.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs">Ghulam Thebo</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img width="160px" height="160px" src="dist/img/gt.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Mateen ul haq - Operator 
+                  Ghulam Thebo - Chairman 
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -87,7 +123,7 @@
               <li class="user-footer">
                 
                 <div class="pull-right">
-                  <a href="#" id="signout" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -105,10 +141,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img width="160px" height="160px" src="dist/img/gt.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Mateen ul haq</p>
+          <p>Ghulam Thebo</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -127,17 +163,12 @@
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
 		<li>
-          <a href="operator.html">
+          <a href="pages/calendar.html">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
            
           </a>
         </li>
-		<li>
-          <a href="operator_form.html">
-            <i class="fa fa-calendar"></i> <span>New Complain</span>
-           
-          </a>
-        </li>
+		
         
         
         
@@ -233,11 +264,11 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">COMPLAINS</h3>
+              <h3 class="box-title">NEW COMPLAINS</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="thetable" class="table table-bordered table-hover">
+              <table id="example1" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>Complain From</th>
@@ -272,7 +303,135 @@
         <!-- /.col -->
       </div>
 	 
-	 
+	 <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">INPROCESS COMPLAINS</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Complain From</th>
+				  <th>CNIC</th>
+                  <th>Complain To</th>
+                  <th>Region</th>
+				  <th>Status</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Zeeshan Quereshi</td>
+                  <td>42010-1234567-0
+                  </td>
+                  <td>Ghulaam Thebo</td>
+                  <td> KArachi East</td>
+				  <td> Submitted</td>
+                  <td><button class="btn btn-success">OPEN</button></td>
+                </tr>
+                
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+         
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+	  
+	  
+	  <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">COMPLETED COMPLAINS</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Complain From</th>
+				  <th>CNIC</th>
+                  <th>Complain To</th>
+                  <th>Region</th>
+				  <th>Status</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Zeeshan Quereshi</td>
+                  <td>42010-1234567-0
+                  </td>
+                  <td>Ghulaam Thebo</td>
+                  <td> KArachi East</td>
+				  <td> Submitted</td>
+                  <td><button class="btn btn-warning">OPEN</button></td>
+                </tr>
+                
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+         
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+	  
+	  <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">REJECTED COMPLAINS</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Complain From</th>
+				  <th>CNIC</th>
+                  <th>Complain To</th>
+                  <th>Region</th>
+				  <th>Status</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Zeeshan Quereshi</td>
+                  <td>42010-1234567-0
+                  </td>
+                  <td>Ghulaam Thebo</td>
+                  <td> KArachi East</td>
+				  <td> Submitted</td>
+                  <td><button class="btn btn-danger">OPEN</button></td>
+                </tr>
+                
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+         
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
 	 
 	 
 	 
@@ -338,13 +497,6 @@
 
 <!-- page script -->
 <script>
-
-	$("#signout").click(function (){
-		localStorage.removeItem("loggedInUser");
-		window.location.href = 'login.html';
-		
-	});
-	
   $(function () {
     $("#example1").DataTable();
     $('#example2').DataTable({
@@ -356,23 +508,6 @@
       "autoWidth": false
     });
   });
-  
-  if (localStorage.getItem('AllComplains')) {
-      console.log(JSON.parse(localStorage.getItem('AllComplains')))
-      var allComplains = JSON.parse(localStorage.getItem('AllComplains'));
-      $('#thetable tr').not(':first').not(':last').remove();
-        var html = '';
-        for(var i = 0; i < allComplains.length; i++) {
-            html += '<tr><td>' + allComplains[i].from + '</td><td>' + allComplains[i].cnic + '</td><td>' + allComplains[i].to + '</td><td>' + allComplains[i].location + '</td><td>' + allComplains[i].status + '</td><td><button id="OpenButton" class="btn btn-info" onclick="openForm('+ allComplains[i].complain_id+')">OPEN</button></td></tr>';
-        }
-
-        $('#thetable tr').first().after(html);
-  }
-
-  function openForm(id){
-    console.log(id);
-    window.location.href= "operator_form.html?id="+id;
-  }
 </script>
 
 </body>

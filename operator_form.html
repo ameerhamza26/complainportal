@@ -338,24 +338,15 @@
      var arr = JSON.parse(localStorage.getItem('AllComplains'));
      for (var i=0;i<arr.length; i++) {
        if (id == arr[i].complain_id) {
-         console.log(arr[i])
          $("#Complainid").val(arr[i].complain_id);
          $('#Name').val(arr[i].from);
          $('#Cnic').val(arr[i].cnic);
          $('#Description').val(arr[i].description);
          $('#Region').val(arr[i].location)
-         console.log(arr[i].files)
          if (arr[i].files){
           //files = this.files;
-            for (var j= 0; j<arr[i].files.length; i++) {
-              var reader = new FileReader();
-
-              reader.onload = function (e) {
-                  var img = '<div style="width:200px;height:200px; display:inline-block;"><img src="' + e.target.result + '" style="width:100%;height:100%;" /><div>';
-                  $('#images').append(img);
-              };
-              
-              reader.readAsDataURL(arr[i].files[j]);
+            for (var j= 0; j<arr[i].files.length; j++) {
+                  $('#images').append(arr[i].files[j]);
             }
          }
 
@@ -369,7 +360,7 @@
 
  
     // detect a change in a file input with an id of “the-file-input”
-    var files;
+    var filesArr =[];
   $("#exampleInputFile").change(function() {
       // will log a FileList object, view gifs below
       files = this.files;
@@ -379,6 +370,7 @@
         reader.onload = function (e) {
             var img = '<div style="width:200px;height:200px; display:inline-block;"><img src="' + e.target.result + '" style="width:100%;height:100%;" /><div>';
             $('#images').append(img);
+            filesArr.push(img);
         };
         // read the image file as a data URL.
         reader.readAsDataURL(this.files[i]);
@@ -395,11 +387,7 @@
       location: $('#Region').val(),
       to: $('#User').val(),
       status: 'Submitted',
-    //  files: files
-    }
-    complain.files = []
-    for (var k = 0; k <files.length; k++) {
-        complain.files.push(files[k]);
+      files: filesArr
     }
 
     if (localStorage.getItem('AllComplains')) {
@@ -413,7 +401,7 @@
       localStorage.setItem('AllComplains', JSON.stringify(arr));
       console.log(localStorage.getItem('AllComplains'))
     }
-
+		window.location.href = 'operator.html';
     //console.log(complain)
   })
 </script>
