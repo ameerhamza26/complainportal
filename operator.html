@@ -127,13 +127,13 @@
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
 		<li>
-          <a href="pages/calendar.html">
+          <a href="operator.html">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
            
           </a>
         </li>
 		<li>
-          <a href="pages/calendar.html">
+          <a href="operator_form.html">
             <i class="fa fa-calendar"></i> <span>New Complain</span>
            
           </a>
@@ -237,7 +237,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-hover">
+              <table id="thetable" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>Complain From</th>
@@ -349,6 +349,23 @@
       "autoWidth": false
     });
   });
+  
+  if (localStorage.getItem('AllComplains')) {
+      console.log(JSON.parse(localStorage.getItem('AllComplains')))
+      var allComplains = JSON.parse(localStorage.getItem('AllComplains'));
+      $('#thetable tr').not(':first').not(':last').remove();
+        var html = '';
+        for(var i = 0; i < allComplains.length; i++) {
+            html += '<tr><td>' + allComplains[i].from + '</td><td>' + allComplains[i].cnic + '</td><td>' + allComplains[i].to + '</td><td>' + allComplains[i].location + '</td><td>' + allComplains[i].status + '</td><td><button id="OpenButton" class="btn btn-info" onclick="openForm('+ allComplains[i].complain_id+')">OPEN</button></td></tr>';
+        }
+
+        $('#thetable tr').first().after(html);
+  }
+
+  function openForm(id){
+    console.log(id);
+    window.location.href= "operator_form.html?id="+id;
+  }
 </script>
 
 </body>
