@@ -70,8 +70,8 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">Mateen ul haq</span>
+                                <img id="userImage" class="user-image" alt="User Image">
+                                <span id="userName" class="hidden-xs">Mateen ul haq</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
@@ -89,7 +89,7 @@
                                 <li class="user-footer">
 
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="#" id="signout" class="btn btn-default btn-flat">Sign out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -107,10 +107,10 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img id="userSideImage" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Mateen ul haq</p>
+                        <p id="userNameSidemenu">Mateen ul haq</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
@@ -129,18 +129,11 @@
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <li>
-                        <a href="chairman.html">
+                        <a href="general.html">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
 
                         </a>
                     </li>
-                    <li>
-                        <a href="operator_form.html">
-                            <i class="fa fa-calendar"></i> <span>New Complain</span>
-
-                        </a>
-                    </li>
-
 
 
 
@@ -229,7 +222,7 @@
                     <img id="image" style="width:100%;height:100%;" />
                   </div>-->
                                 </div>
-                                <div id="SubmitDiv"  class="box-footer">
+                                <div id="SubmitDiv" class="box-footer">
                                     <button id="submit" type="submit" class="btn btn-primary">Submit</button>
                                 </div>
 
@@ -246,7 +239,8 @@
 
                     </div>
 
-                    <div class="col-md-6">
+
+                    <div id="SubmitCommentDiv" class="col-md-6">
                         <!-- /.box -->
                         <!-- general form elements disabled -->
                         <div class="box box-warning">
@@ -261,16 +255,26 @@
                                     <textarea id="Comment" class="form-control" rows="3" placeholder="Enter Description"></textarea>
                                 </div>
 
-                                <div class="form-group">
+                                <div id="AssignToDiv" class="form-group">
                                     <label>Assign To</label>
                                     <select class="form-control" id="AssignTo">
-                                        <option>SI</option>
-                                        <option>Director ACE</option>
+                                        <!--<option>SI</option>
+                                        <option>Director ACE</option>-->
                                     </select>
                                 </div>
 
+                                <div id="EnquiryFileDiv" class="form-group">
+                                    <label for="exampleInputFile">Choose Enquiry File</label>
+                                    <input type="file" id="enquiryInputFile" multiple>
+                                </div>
+
+
                                 <div class="box-footer">
                                     <button id="CommentSubmit" type="submit" class="btn btn-primary">Submit</button>
+                                    <button id="SubmitToDD" type="submit" class="btn btn-primary">Submit to Deputy Director</button>
+                                    <button id="SubmitToDL" type="submit" class="btn btn-primary">Submit to Deputy Legal</button>
+                                    <button id="SubmitToACC" type="submit" class="btn btn-primary">Submit to ACC Commitee</button>
+                                    <button id="CloseSubmit" type="submit" class="btn btn-primary">Close Case</button>
                                 </div>
 
 
@@ -284,7 +288,23 @@
                     <!--/.col (right) -->
                 </div>
 
+                <div class="row">
+                    <div id="EnquiredDocumentsDiv" class="col-md-12">
+                        <div class="box box-warning">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Enquired Documents</h3>
+                            </div>
+                            <div class="box-body">
+                                <div id="imagesEnquiry">
+                                    <!--<div style="width:200px;height:200px; display:inline-block;">
+                    <img id="image" style="width:100%;height:100%;" />
+                  </div>-->
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
 
 
             </section>
@@ -357,6 +377,80 @@
       "autoWidth": false
     });
   });
+ 
+  if (localStorage.getItem('loggedInUser')) {
+      var user = JSON.parse(localStorage.getItem('loggedInUser'))
+      $('#userName').html(user.name)
+      $('#userNameSidemenu').text(user.name)
+      $('#userImage').attr('src', user.img)
+      $('#userSideImage').attr('src',user.img)
+  } 
+  else {
+      window.location.href= "login.html"
+  }
+
+  var loggedUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  if (loggedUser.role == 'Chairman') {
+        $('#EnquiryFileDiv').hide();
+        $('#imagesEnquiry').hide();
+        $('#SubmitToDD').hide();
+        $('#SubmitToDL').hide();
+        $('#SubmitToACC').hide();
+        $('#CloseSubmit').hide();
+        $('#EnquiredDocumentsDiv').hide();
+        $("#AssignTo").append(new Option("SI", "SI"));
+        $("#AssignTo").append(new Option("Director ACE", "Director ACE"));
+  }
+  else if (loggedUser.role == 'SI') {
+        $('#EnquiryFileDiv').hide();
+        $('#imagesEnquiry').hide();
+        $('#SubmitToDD').hide();
+        $('#SubmitToDL').hide();
+        $('#SubmitToACC').hide();
+        $('#CloseSubmit').hide();
+        $('#EnquiredDocumentsDiv').hide();
+        $("#AssignTo").append(new Option("Chairman", "Chairman"));
+        $("#AssignTo").append(new Option("Director ACE", "Director ACE"));
+  }
+  else if (loggedUser.role == 'Director ACE') {
+        $('#EnquiryFileDiv').hide();
+        $('#imagesEnquiry').hide();
+        $('#SubmitToDD').hide();
+        $('#SubmitToDL').hide();
+        $('#SubmitToACC').hide();
+        $('#CloseSubmit').hide();
+        $('#EnquiredDocumentsDiv').hide();
+        $("#AssignTo").append(new Option("SI", "SI"));
+        $("#AssignTo").append(new Option("Deputy Director", "Deputy Director"));
+  }
+  else if (loggedUser.role == 'Deputy Director') {
+        $('#EnquiryFileDiv').hide();
+        $('#imagesEnquiry').hide();
+        $('#SubmitToDD').hide();
+        $('#SubmitToACC').hide();
+        $('#SubmitToDL').hide();
+        $('#CloseSubmit').hide();
+        $('#EnquiredDocumentsDiv').hide();
+        $("#AssignTo").append(new Option("ASI-1", "ASI-1"));
+        $("#AssignTo").append(new Option("ASI-2", "ASI-2"));
+        $("#AssignTo").append(new Option("ASI-3", "ASI-3"));
+  } else if (loggedUser.role == 'ASI-1' || loggedUser.role == 'ASI-2' || loggedUser.role == 'ASI-3') {
+        $("#AssignToDiv").hide();
+        $('#CommentSubmit').hide();
+        $('#SubmitToACC').hide();
+        $('#SubmitToDL').hide();
+        $('#EnquiredDocumentsDiv').hide();
+  }
+  else if (loggedUser.role == 'Director Legal') {
+        $('#EnquiryFileDiv').hide();
+        $('#imagesEnquiry').hide();
+        $('#SubmitToDD').hide();
+        $('#SubmitToDL').hide();
+        $('#CloseSubmit').hide();
+        $('#CommentSubmit').hide();
+        $("#AssignToDiv").hide();
+        $('#SubmitToACC').show();
+  }
   var files;
 
   var getUrlParameter = function getUrlParameter(sParam) {
@@ -380,7 +474,7 @@
                     '<h3 class="box-title">History</h3>'+
                 '</div>'+
                 '<div class="box-body">'+
-                    '<table id="thetable" class="table table-bordered table-hover">'+
+                    '<table id="thetable" class="table table-bordered table-hover table-striped">'+
                         '<thead>'+
                             '<tr>'+
                                 '<th>Comments</th>'+
@@ -424,6 +518,25 @@
                 }
                 $('#thetable tr').first().after(html);
             }
+        
+        if(arr[i].enquiryFiles && (arr[i].status == 'INPROCESS' || arr[i].status == 'COMPLETED')) {
+                 $('#EnquiredDocumentsDiv').show();
+                 $('#imagesEnquiry').show();
+                for (var m= 0; m<arr[i].enquiryFiles.length; m++) {
+                    $('#imagesEnquiry').append(arr[i].enquiryFiles[m]);
+                }
+        }
+
+        if (arr[i].status == 'INPROCESS' && loggedUser.role == 'Deputy Director') {
+            $('#SubmitToDL').show();
+            $('#CommentSubmit').hide();
+            $("#AssignToDiv").hide();
+            
+        }
+
+        if (arr[i].status == 'COMPLETED' || arr[i].status == 'REJECTED') {
+            $('#SubmitCommentDiv').hide();
+        }
 
        }
      }
@@ -452,6 +565,25 @@
       }
   });
 
+      // detect a change in a file input with an id of “the-file-input”
+ var filesEnquiryArr =[];
+  $("#enquiryInputFile").change(function() {
+      // will log a FileList object, view gifs below
+      files = this.files;
+      $('#EnquiredDocumentsDiv').show();
+      for (var i= 0; i<this.files.length; i++) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var img = '<div style="width:200px;height:200px; display:inline-block;"><img src="' + e.target.result + '" style="width:100%;height:100%;" /><div>';
+            $('#imagesEnquiry').append(img);
+            filesEnquiryArr.push(img);
+        };
+        // read the image file as a data URL.
+        reader.readAsDataURL(this.files[i]);
+      }
+  });
+
   $('#CommentSubmit').click(function() {
     var arr = JSON.parse(localStorage.getItem('AllComplains'));
     var loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
@@ -463,7 +595,11 @@
             assigned_to: $('#AssignTo').val(),
             from: loggedInUser.role
         }
+        if (loggedInUser.role == 'Deputy Director') {
+            arr[current_index].status = 'INPROCESS';
+        }
         arr[current_index].comments.push(comment_obj);
+        arr[current_index].to = $('#AssignTo').val();
         localStorage.setItem('AllComplains', JSON.stringify(arr));
         var html = '<tr><td>' + $('#Comment').val() + '</td><td>' + loggedInUser.role + '</td><td>' + $('#AssignTo').val() + '</td></tr>';
         
@@ -476,7 +612,11 @@
             assigned_to: $('#AssignTo').val(),
             from: loggedInUser.role
         }]
+        if (loggedInUser.role == 'Deputy Director') {
+            arr[current_index].status = 'INPROCESS';
+        }
         arr[current_index].comments = comment_obj;
+        arr[current_index].to = $('#AssignTo').val();
         localStorage.setItem('AllComplains', JSON.stringify(arr));
         $('#History').append(tablehtml);
         $('#thetable tr').not(':first').remove();
@@ -487,6 +627,83 @@
 
     $('#Comment').val('')
   })
+
+  $('#SubmitToDD').click(function(){
+        var arr = JSON.parse(localStorage.getItem('AllComplains'));
+        arr[current_index].enquiryFiles = filesEnquiryArr;
+        var comment_obj = {
+            text: $('#Comment').val(),
+            assigned_to: 'Deputy Director',
+            from: loggedUser.role
+        }
+        arr[current_index].comments.push(comment_obj);
+        arr[current_index].to = 'Deputy Director';
+        arr[current_index].status = 'INPROCESS';
+        localStorage.setItem('AllComplains', JSON.stringify(arr));
+        var html = '<tr><td>' + $('#Comment').val() + '</td><td>' + loggedUser.role + '</td><td>' + 'Deputy Director' + '</td></tr>';
+        
+        $('#thetable tr').first().after(html);
+        $('#Comment').val('')
+  })
+
+    $('#SubmitToDL').click(function(){
+        var arr = JSON.parse(localStorage.getItem('AllComplains'));
+        var comment_obj = {
+            text: $('#Comment').val(),
+            assigned_to: 'Director Legal',
+            from: loggedUser.role
+        }
+        arr[current_index].comments.push(comment_obj);
+        arr[current_index].to = 'Director Legal';
+        arr[current_index].status = 'INPROCESS';
+        localStorage.setItem('AllComplains', JSON.stringify(arr));
+        var html = '<tr><td>' + $('#Comment').val() + '</td><td>' + loggedUser.role + '</td><td>' + 'Director Legal' + '</td></tr>';
+        
+        $('#thetable tr').first().after(html);
+        $('#Comment').val('')
+  })
+
+  $('#SubmitToACC').click(function(){
+        var arr = JSON.parse(localStorage.getItem('AllComplains'));
+        var comment_obj = {
+            text: $('#Comment').val(),
+            assigned_to: 'Committee',
+            from: loggedUser.role
+        }
+        arr[current_index].comments.push(comment_obj);
+        arr[current_index].to = 'Committee';
+        arr[current_index].status = 'COMPLETED';
+        localStorage.setItem('AllComplains', JSON.stringify(arr));
+        var html = '<tr><td>' + $('#Comment').val() + '</td><td>' + loggedUser.role + '</td><td>' + 'Committee' + '</td></tr>';
+        
+        $('#thetable tr').first().after(html);
+        $('#Comment').val('')
+        $('#SubmitCommentDiv').hide();
+  })
+
+  $('#CloseSubmit').click(function() {
+      var arr = JSON.parse(localStorage.getItem('AllComplains'));
+      arr[current_index].status = 'REJECTED';
+      var comment_obj = {
+            text: $('#Comment').val(),
+            assigned_to: 'Assigned to No One',
+            from: loggedUser.role
+        }
+
+      arr[current_index].comments.push(comment_obj);
+      arr[current_index].to = 'Assigned to No One';
+      localStorage.setItem('AllComplains', JSON.stringify(arr));
+      var html = '<tr><td>' + $('#Comment').val() + '</td><td>' + loggedUser.role + '</td><td>' + 'Assigned to No One' + '</td></tr>';
+      $('#thetable tr').first().after(html);
+      $('#Comment').val('')
+      $('#SubmitCommentDiv').hide();
+  })
+
+    $("#signout").click(function (){
+		localStorage.removeItem("loggedInUser");
+		window.location.href = 'login.html';
+	});
+
 </script>
 
 </body>

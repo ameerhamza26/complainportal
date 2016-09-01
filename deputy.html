@@ -104,8 +104,8 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img width="160px" height="160px" src="dist/img/gt.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Ghulam Thebo</span>
+              <img id="userImage" width="160px" height="160px" class="user-image" alt="User Image">
+              <span id="userName" class="hidden-xs">Ghulam Thebo</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -141,10 +141,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img width="160px" height="160px" src="dist/img/gt.jpg" class="img-circle" alt="User Image">
+          <img id="userSideImage" width="160px" height="160px" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Ghulam Thebo</p>
+          <p id="userNameSidemenu">Ghulam Thebo</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -508,7 +508,18 @@
       "autoWidth": false
     });
   });
-  
+
+  if (localStorage.getItem('loggedInUser')) {
+      var user = JSON.parse(localStorage.getItem('loggedInUser'))
+      $('#userName').html(user.name)
+      $('#userNameSidemenu').text(user.name)
+      $('#userImage').attr('src', user.img)
+      $('#userSideImage').attr('src',user.img)
+  } 
+  else {
+      window.location.href= "login.html"
+  }
+  var loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
   
    if (localStorage.getItem('AllComplains')) {
       console.log(JSON.parse(localStorage.getItem('AllComplains')))
@@ -516,7 +527,9 @@
       $('#thetable tr').not(':first').remove();
         var html = '';
         for(var i = 0; i < allComplains.length; i++) {
+          if (loggedInUser.role == allComplains[i].to) {
             html += '<tr><td>' + allComplains[i].from + '</td><td>' + allComplains[i].cnic + '</td><td>' + allComplains[i].to + '</td><td>' + allComplains[i].location + '</td><td>' + allComplains[i].status + '</td><td><button id="OpenButton" class="btn btn-info" onclick="openForm('+ allComplains[i].complain_id+')">OPEN</button></td></tr>';
+          }
         }
 
         $('#thetable tr').first().after(html);

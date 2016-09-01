@@ -93,14 +93,52 @@
   }, {
     email: 'chairman@hotmail.com',
     password: 'password',
-    role: 'chairman',
-    name: 'chairman Khan'
+    role: 'Chairman',
+    name: 'Ghulam Thebo',
+    img: 'dist/img/gt.jpg'
   }, {
     email: 'deputy@hotmail.com',
     password: 'password',
-    role: 'deputy',
-    name: 'deputy khan'
-  }]
+    role: 'Deputy Director',
+    name: 'deputy khan',
+    img: 'dist/img/user2-160x160.jpg'
+  }, {
+    email: 'directorAce@hotmail.com',
+    password: 'password',
+    role: 'Director ACE',
+    name: 'Director ACE Khan',
+    img: 'dist/img/user2-160x160.jpg'
+  }, {
+    email: 'asi1@hotmail.com',
+    password: 'password',
+    role: 'ASI-1',
+    name: 'ASI One',
+    img: 'dist/img/user2-160x160.jpg'
+  }, {
+    email: 'asi2@hotmail.com',
+    password: 'password',
+    role: 'ASI-2',
+    name: 'ASI two',
+    img: 'dist/img/user2-160x160.jpg'
+  }, {
+    email: 'asi3@hotmail.com',
+    password: 'password',
+    role: 'ASI-3',
+    name: 'ASI three',
+    img: 'dist/img/user2-160x160.jpg'
+  }, {
+    email: 'si@hotmail.com',
+    password: 'password',
+    role: 'SI',
+    name: 'Sub Inspector',
+    img: 'dist/img/user2-160x160.jpg'
+  }, {
+    email: 'directorLegal@hotmail.com',
+    password: 'password',
+    role: 'Director Legal',
+    name: 'Director Legal',
+    img: 'dist/img/user2-160x160.jpg'
+  }] 
 
   localStorage.setItem('AllUsers', JSON.stringify(allUsers));
   console.log( JSON.parse(localStorage.getItem('AllUsers')) )
@@ -111,8 +149,8 @@
           window.location.href = 'operator_form.html';
           localStorage.setItem('loggedInUser', JSON.stringify(users[i]));
         }
-		else if( $('#email').val() == users[i].email && $('#password').val() == users[i].password && users[i].role == 'chairman' ) {
-          window.location.href = 'chairman.html';
+	  	else if( $('#email').val() == users[i].email && $('#password').val() == users[i].password && (users[i].role == 'Chairman'|| users[i].role == 'Director ACE' || users[i].role == 'ASI-1' || users[i].role == 'ASI-2' || users[i].role == 'ASI-3' || users[i].role == 'Director Legal' || users[i].role == 'Deputy Director' || users[i].role == 'SI')) {
+          window.location.href = 'general.html'; 
           localStorage.setItem('loggedInUser', JSON.stringify(users[i]));
         }
       }
