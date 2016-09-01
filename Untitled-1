@@ -1,0 +1,10 @@
+<script>
+  if (localStorage.getItem('loggedInUser')) {
+      var user = JSON.parse(localStorage.getItem('loggedInUser'))
+      $('#userName').html(user.name)
+      $('#userNameSidemenu').text(user.name)
+  } 
+  else {
+    window.location.href= "login.html"
+  }
+</script>
