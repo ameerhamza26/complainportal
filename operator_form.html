@@ -48,14 +48,11 @@
 
     <header class="main-header">
       <!-- Logo -->
-      <a href="index2.html" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>A</b>LT</span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b>LTE</span>
-      </a>
+    <div class="logo" style="background-color: #ed1c24;">
+        <img src="dist/img/oracle.png" style="width:100%; height:100%;">
+    </div>
       <!-- Header Navbar: style can be found in header.less -->
-      <nav class="navbar navbar-static-top">
+      <nav class="navbar navbar-static-top" style="background-color: red;">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
           <span class="sr-only">Toggle navigation</span>
@@ -185,6 +182,11 @@
                 </div>
 
                 <div class="form-group">
+                  <label>Date:</label>
+                  <input id="Date" type="date" class="form-control" placeholder="Enter Name">
+                </div>
+
+                <div class="form-group">
                   <label>From (name)</label>
                   <input id="Name" type="text" class="form-control" placeholder="Enter Name">
                 </div>
@@ -203,11 +205,12 @@
                 <div class="form-group">
                   <label>Location</label>
                   <select class="form-control" id="Region">
-                    <option>Region 1</option>
-                    <option>Region 2</option>
-                    <option>Region 3</option>
-                    <option>Region 4</option>
-                    <option>Region 5</option>
+                    <option>Khi (S)</option>
+                    <option>Khi (W)</option>
+                    <option>Hyderabad</option>
+                    <option>M.Khas</option>
+                    <option>Sukkur</option>
+                    <option>Larkana</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -383,21 +386,24 @@
       complain_id: $("#Complainid").val(),
       from: $('#Name').val(),
       cnic: $('#Cnic').val(),
+      date: $('#Date').val(),
       description: $('#Description').val(),
       location: $('#Region').val(),
       to: $('#User').val(),
       to_first: $('#User').val(),
-      status: 'Submitted',
+      status: 'SUBMITTED',
       files: filesArr
     }
 
     if (localStorage.getItem('AllComplains')) {
+      console.log("in if")
       var arr = JSON.parse(localStorage.getItem('AllComplains'));
       arr.push(complain);
       localStorage.setItem('AllComplains', JSON.stringify(arr));
       console.log(localStorage.getItem('AllComplains'))
     }
     else {
+      console.log("in else")
       var arr = [complain];
       localStorage.setItem('AllComplains', JSON.stringify(arr));
       console.log(localStorage.getItem('AllComplains'))
