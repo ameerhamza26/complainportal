@@ -48,9 +48,9 @@
 
         <header class="main-header">
             <!-- Logo -->
-    <div class="logo" style="background-color: #ed1c24;">
-        <img src="dist/img/oracle.png" style="width:100%; height:100%;">
-    </div>
+            <div class="logo" style="background-color: #04763c;">
+                <!--<img src="dist/img/oracle.png" style="width:100%; height:100%;">-->
+            </div>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" style="background-color: #004226;">
                 <!-- Sidebar toggle button-->
@@ -73,9 +73,9 @@
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                    <img id="userImageDropdown" class="img-circle" alt="User Image">
 
-                                    <p>
+                                    <p id="userNameDropdown">
                                         Mateen ul haq - Operator
                                         <small>Member since Nov. 2012</small>
                                     </p>
@@ -103,7 +103,7 @@
             <section class="sidebar">
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
-                    <div class="pull-left image">
+                    <div id="pop" class="pull-left image">
                         <img id="userSideImage" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
@@ -139,6 +139,24 @@
             <!-- /.sidebar -->
         </aside>
 
+
+    <!-- Creates the bootstrap modal where the image will appear -->
+    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="width:400px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Image preview</h4>
+          </div>
+          <div class="modal-body" style="height:400px;width:400px;">
+            <img src="" id="imagepreview" style="width: 100%; height: 100%;">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -174,19 +192,28 @@
                                     <input id="Complainid" type="text" class="form-control" placeholder="Enter Name" disabled>
                                 </div>
 
-                            <div class="form-group">
-                            <label>Date:</label>
-                            <input id="Date" type="date" class="form-control" placeholder="Enter Name">
-                            </div>
+                                <div class="form-group">
+                                    <label>Date:</label>
+                                    <input id="Date" type="date" class="form-control" placeholder="Enter Name">
+                                </div>
 
                                 <div class="form-group">
                                     <label>From (name)</label>
                                     <input id="Name" type="text" class="form-control" placeholder="Enter Name">
                                 </div>
                                 <div class="form-group">
+                                    <label>Against</label>
+                                    <select class="form-control" id="Against">
+                                        <option>Irrigation department</option>
+                                        <option>Sindh Revenue Board</option>
+                                        <option>Works and Services</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label>CNIC</label>
                                     <input id="Cnic" type="number" class="form-control" placeholder="Enter CNIC">
                                 </div>
+
 
                                 <!-- textarea -->
                                 <div class="form-group">
@@ -387,12 +414,20 @@
       $('#userNameSidemenu').text(user.name)
       $('#userImage').attr('src', user.img)
       $('#userSideImage').attr('src',user.img)
+      $('#userImageDropdown').attr('src',user.img)
+      $('#userNameDropdown').text(user.name)
   } 
   else {
       window.location.href= "index.html"
   }
 
   var loggedUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+$("#pop").on("click", function() {
+    $('#myModalLabel').text(loggedUser.name);
+   $('#imagepreview').attr('src', loggedUser.img); // here asign the image to the modal when the user click the enlarge link
+   $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+  });
   if (loggedUser.role == 'Chairman') {
         $('#EnquiryFileDiv').hide();
         $('#imagesEnquiry').hide();
@@ -506,6 +541,7 @@
          $('#Name').val(arr[i].from);
          $('#Cnic').val(arr[i].cnic);
          $('#Date').val(arr[i].date);
+         $('#Against').val(arr[i].against)
          $('#Description').val(arr[i].description);
          $('#Region').val(arr[i].location)
          if (arr[i].files){
