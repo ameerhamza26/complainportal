@@ -48,9 +48,9 @@
 
     <header class="main-header">
       <div class="logo" style="background-color: #04763c;">
-        <div>
-
-        </div>
+        <span class="logo-mini"><b>C</b>P</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>COMPLAIN </b>Portal</span>
 
       </div>
       <!-- Logo -->
@@ -707,22 +707,22 @@
         var inprocess =0;
         var rejected = 0;
         for(var i = 0; i < allComplains.length; i++) {
-          if (loggedInUser.role == allComplains[i].to) {
+          if ( (loggedInUser.role == 'Chairman' && allComplains[i].status == 'SUBMITTED') ||  (loggedInUser.role == allComplains[i].to && allComplains[i].status == 'SUBMITTED')) {
             html += '<tr><td>' + allComplains[i].from + '</td><td>' + allComplains[i].cnic + '</td><td>' + allComplains[i].to_first + '</td><td>' + allComplains[i].location + '</td><td>' + allComplains[i].against + '</td><td>' + allComplains[i].status + '</td><td><button id="OpenButton" class="btn btn-info" onclick="openForm('+ allComplains[i].complain_id+')">OPEN</button></td></tr>';
             newcount +=1;
           }
 
-          if (allComplains[i].status == 'COMPLETED') {
+          if ( (loggedInUser.role == 'Chairman' && allComplains[i].status == 'COMPLETED') ||  (loggedInUser.role == allComplains[i].to && allComplains[i].status == 'COMPLETED')) {
             completedHtml += '<tr><td>' + allComplains[i].from + '</td><td>' + allComplains[i].cnic + '</td><td>' + allComplains[i].to_first + '</td><td>' + allComplains[i].location + '</td><td>' + allComplains[i].against + '</td><td>' + allComplains[i].status + '</td><td><button id="OpenButton" class="btn btn-warning" onclick="openForm('+ allComplains[i].complain_id+')">OPEN</button></td></tr>';
             completed +=1;
           }
 
-          if (allComplains[i].status == 'INPROCESS') {
+          if ( (loggedInUser.role == 'Chairman' && allComplains[i].status == 'INPROCESS') ||  (loggedInUser.role == allComplains[i].to && allComplains[i].status == 'INPROCESS')) {
             inProcessHtml += '<tr><td>' + allComplains[i].from + '</td><td>' + allComplains[i].cnic + '</td><td>' + allComplains[i].to_first + '</td><td>' + allComplains[i].location + '</td><td>' + allComplains[i].against + '</td><td>' + allComplains[i].status + '</td><td><button id="OpenButton" class="btn btn-success" onclick="openForm('+ allComplains[i].complain_id+')">OPEN</button></td></tr>';
             inprocess +=1;
           }
 
-          if (allComplains[i].status == 'REJECTED') {
+          if ( (loggedInUser.role == 'Chairman' && allComplains[i].status == 'REJECTED') ||  (loggedInUser.role == allComplains[i].to && allComplains[i].status == 'REJECTED')) {
             rejectHtml += '<tr><td>' + allComplains[i].from + '</td><td>' + allComplains[i].cnic + '</td><td>' + allComplains[i].to_first + '</td><td>' + allComplains[i].location + '</td><td>' + allComplains[i].against + '</td><td>' + allComplains[i].status + '</td><td><button id="OpenButton" class="btn btn-danger" onclick="openForm('+ allComplains[i].complain_id+')">OPEN</button></td></tr>';
             rejected +=1;
           }

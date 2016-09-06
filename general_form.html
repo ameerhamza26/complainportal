@@ -50,6 +50,9 @@
             <!-- Logo -->
             <div class="logo" style="background-color: #04763c;">
                 <!--<img src="dist/img/oracle.png" style="width:100%; height:100%;">-->
+                <span class="logo-mini"><b>C</b>P</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>COMPLAIN </b>Portal</span>
             </div>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" style="background-color: #004226;">
@@ -238,7 +241,9 @@
                                     <select class="form-control" id="User">
                     <option>Chairman</option>
                     <option>Director ACE</option>
-                    <option>Deputy Director</option>
+                    <option>Deputy Director1</option>
+                    <option>Deputy Director2</option>
+                    <option>Deputy Director3</option>
                   </select>
                                 </div>
 
@@ -459,9 +464,11 @@ $("#pop").on("click", function() {
         $('#CloseSubmit').hide();
         $('#EnquiredDocumentsDiv').hide();
         $("#AssignTo").append(new Option("SI", "SI"));
-        $("#AssignTo").append(new Option("Deputy Director", "Deputy Director"));
+        $("#AssignTo").append(new Option("Deputy Director1", "Deputy Director1"));
+        $("#AssignTo").append(new Option("Deputy Director2", "Deputy Director2"));
+        $("#AssignTo").append(new Option("Deputy Director3", "Deputy Director3"));
   }
-  else if (loggedUser.role == 'Deputy Director') {
+  else if (loggedUser.role == 'Deputy Director1' || loggedUser.role == 'Deputy Director2' || loggedUser.role == 'Deputy Director3') {
         $('#EnquiryFileDiv').hide();
         $('#imagesEnquiry').hide();
         $('#SubmitToDD').hide();
@@ -514,7 +521,7 @@ $("#pop").on("click", function() {
                 '<div class="box-body">'+
                     '<table id="thetable" class="table table-bordered table-hover table-striped">'+
                         '<thead>'+
-                            '<tr style="background-color:#ecf0f5">'+
+                            '<tr style="background-color:#c2fff1">'+
                                 '<th>Comments</th>'+
                                 '<th>From</th>'+
                                 '<th>Assigned To</th>'+
@@ -558,19 +565,23 @@ $("#pop").on("click", function() {
                 console.log(arr[i].comments.length)
                 for(var k = (arr[i].comments.length -1); k >=0; k--) {
                     var rowColor = 'white';
-                    if (arr[i].comments[k].from == 'Deputy Director') {
-                        rowColor = '#c2fff1'
+
+                    if ( k%2 == 0) {
+                        rowColor = '#ecf0f5'
                     }
-                    if (arr[i].comments[k].from == 'Chairman') {
-                        rowColor= '#ffcfd1'
-                    }
-                    if (arr[i].comments[k].from == 'Director ACE') {
-                        rowColor= '#f8ffd1'
-                    }
+                    // if (arr[i].comments[k].from == 'Deputy Director') {
+                    //     rowColor = '#c2fff1'
+                    // }
+                    // if (arr[i].comments[k].from == 'Chairman') {
+                    //     rowColor= '#ffcfd1'
+                    // }
+                    // if (arr[i].comments[k].from == 'Director ACE') {
+                    //     rowColor= '#f8ffd1'
+                    // }
                     
-                    if (arr[i].comments[k].from == 'Director Legal') {
-                        rowColor= '#a4ffc8'
-                    }
+                    // if (arr[i].comments[k].from == 'Director Legal') {
+                    //     rowColor= '#a4ffc8'
+                    // }
                     html += '<tr style="background-color:'+rowColor +'"><td>' + arr[i].comments[k].text + '</td><td>' + arr[i].comments[k].from + '</td><td>' + arr[i].comments[k].assigned_to + '</td><td>' + arr[i].comments[k].date + '</td></tr>';
                 }
                 $('#thetable tr').first().after(html);
@@ -584,7 +595,7 @@ $("#pop").on("click", function() {
                 }
         }
 
-        if (arr[i].status == 'INPROCESS' && loggedUser.role == 'Deputy Director') {
+        if (arr[i].status == 'INPROCESS' && (loggedUser.role == 'Deputy Director1' || loggedUser.role == 'Deputy Director2' || loggedUser.role == 'Deputy Director3')) {
             $('#SubmitToDL').show();
             $('#CommentSubmit').hide();
             $("#AssignToDiv").hide();
@@ -711,17 +722,30 @@ $("#pop").on("click", function() {
 
         var arr = JSON.parse(localStorage.getItem('AllComplains'));
         arr[current_index].enquiryFiles = filesEnquiryArr;
+        var assignto = '';
+        for (var a=0; a< arr[current_index].comments.length; a++) {
+            if (arr[current_index].comments[a].from == 'Deputy Director1') {
+                assignto = 'Deputy Director1'
+            }
+            else if (arr[current_index].comments[a].from == 'Deputy Director2') {
+                assignto = 'Deputy Director2'
+            } 
+            else if (arr[current_index].comments[a].from == 'Deputy Director3') {
+                assignto = 'Deputy Director2'
+            } 
+        }
+
         var comment_obj = {
             text: $('#Comment').val(),
-            assigned_to: 'Deputy Director',
+            assigned_to: assignto,
             from: loggedUser.role,
             date: final_date
         }
         arr[current_index].comments.push(comment_obj);
-        arr[current_index].to = 'Deputy Director';
+        arr[current_index].to = assignto;
         arr[current_index].status = 'INPROCESS';
         localStorage.setItem('AllComplains', JSON.stringify(arr));
-        var html = '<tr><td>' + $('#Comment').val() + '</td><td>' + loggedUser.role + '</td><td>' + 'Deputy Director' + '</td><td>' +final_date+ '</td></tr>';
+        var html = '<tr><td>' + $('#Comment').val() + '</td><td>' + loggedUser.role + '</td><td>' + assignto + '</td><td>' +final_date+ '</td></tr>';
         
         $('#thetable tr').first().after(html);
         $('#Comment').val('')
